@@ -24,6 +24,7 @@ class Scanner:
             self.options = {
                 'sgrep_rules': None,
                 'sgrep_extensions': None,
+                'sgrep_max_memory': 0,
                 'match_rules': None,
                 'match_extensions': None,
                 'choice_rules': None,

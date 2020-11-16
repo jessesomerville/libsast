@@ -30,11 +30,10 @@ Pattern Matcher is cross-platform, but Semgrep supports only Mac and Linux.
 $ libsast
 usage: libsast [-h] [-o OUTPUT] [-p PATTERN_FILE] [-s SGREP_PATTERN_FILE]
                [--sgrep-file-extensions SGREP_FILE_EXTENSIONS [SGREP_FILE_EXTENSIONS ...]]
-               [--file-extensions FILE_EXTENSIONS [FILE_EXTENSIONS ...]]
+               [--sgrep-max-memory SGREP_MAX_MEMORY] [--file-extensions FILE_EXTENSIONS [FILE_EXTENSIONS ...]]
                [--ignore-filenames IGNORE_FILENAMES [IGNORE_FILENAMES ...]]
                [--ignore-extensions IGNORE_EXTENSIONS [IGNORE_EXTENSIONS ...]]
-               [--ignore-paths IGNORE_PATHS [IGNORE_PATHS ...]]
-               [--show-progress] [-v]
+               [--ignore-paths IGNORE_PATHS [IGNORE_PATHS ...]] [--show-progress] [-v]
                [path [path ...]]
 
 positional arguments:
@@ -50,9 +49,10 @@ optional arguments:
                         sgrep rules directory
   --sgrep-file-extensions SGREP_FILE_EXTENSIONS [SGREP_FILE_EXTENSIONS ...]
                         File extensions that should be scanned with sgrep
+  --sgrep-max-memory SGREP_MAX_MEMORY
+                        Limit how much memory semgrep can use. A value of 0 means the memory usage is unbounded
   --file-extensions FILE_EXTENSIONS [FILE_EXTENSIONS ...]
-                        File extensions that should be scanned with pattern
-                        matcher
+                        File extensions that should be scanned with pattern matcher
   --ignore-filenames IGNORE_FILENAMES [IGNORE_FILENAMES ...]
                         File name(s) to ignore
   --ignore-extensions IGNORE_EXTENSIONS [IGNORE_EXTENSIONS ...]
@@ -366,7 +366,7 @@ $ libsast -s tests/assets/rules/semantic_grep/ -p tests/assets/rules/pattern_mat
 
 ```python
 >>> from libsast import Scanner
->>> options = {'match_rules': '/Users/ajinabraham/Code/njsscan/njsscan/rules/pattern_matcher', 'sgrep_rules': '/Users/ajinabraham/Code/njsscan/njsscan/rules/semantic_grep', 'sgrep_extensions': {'', '.js'}, 'match_extensions': {'.hbs', '.sh', '.ejs', '.toml', '.mustache', '.tmpl', '.jade', '.json', '.ect', '.vue', '.yml', '.hdbs', '.tl', '.html', '.haml', '.dust', '.pug', '.tpl'}, 'ignore_filenames': {'bootstrap.min.js', '.DS_Store', 'bootstrap-tour.js', 'd3.min.js', 'tinymce.js', 'codemirror.js', 'tinymce.min.js', 'react-dom.production.min.js', 'react.js', 'jquery.min.js', 'react.production.min.js', 'codemirror-compressed.js', 'axios.min.js', 'angular.min.js', 'raphael-min.js', 'vue.min.js'}, 'ignore_extensions': {'.7z', '.exe', '.rar', '.zip', '.a', '.o', '.tz'}, 'ignore_paths': {'__MACOSX', 'jquery', 'fixtures', 'node_modules', 'bower_components', 'example', 'spec'}, 'show_progress': False}
+>>> options = {'match_rules': '/Users/ajinabraham/Code/njsscan/njsscan/rules/pattern_matcher', 'sgrep_rules': '/Users/ajinabraham/Code/njsscan/njsscan/rules/semantic_grep', 'sgrep_extensions': {'', '.js'}, 'sgrep_max_memory': 1024, 'match_extensions': {'.hbs', '.sh', '.ejs', '.toml', '.mustache', '.tmpl', '.jade', '.json', '.ect', '.vue', '.yml', '.hdbs', '.tl', '.html', '.haml', '.dust', '.pug', '.tpl'}, 'ignore_filenames': {'bootstrap.min.js', '.DS_Store', 'bootstrap-tour.js', 'd3.min.js', 'tinymce.js', 'codemirror.js', 'tinymce.min.js', 'react-dom.production.min.js', 'react.js', 'jquery.min.js', 'react.production.min.js', 'codemirror-compressed.js', 'axios.min.js', 'angular.min.js', 'raphael-min.js', 'vue.min.js'}, 'ignore_extensions': {'.7z', '.exe', '.rar', '.zip', '.a', '.o', '.tz'}, 'ignore_paths': {'__MACOSX', 'jquery', 'fixtures', 'node_modules', 'bower_components', 'example', 'spec'}, 'show_progress': False}
 >>> paths = ['../njsscan/tests/assets/dot_njsscan/']
 >>> scanner = Scanner(options, paths)
 >>> scanner.scan()

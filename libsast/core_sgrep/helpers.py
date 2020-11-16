@@ -6,7 +6,7 @@ import multiprocessing
 from io import StringIO
 
 
-def invoke_semgrep(paths, scan_rules, **kwargs):
+def invoke_semgrep(paths, scan_rules, max_memory, **kwargs):
     """Call Semgrep."""
     if platform.system() == 'Windows':
         return None
@@ -39,6 +39,7 @@ def invoke_semgrep(paths, scan_rules, **kwargs):
         configs=[scan_rules],
         timeout=5,
         timeout_threshold=3,
+        max_memory=max_memory,  # Limit how much memory semgrep can use
         **kwargs,
     )
     output_handler.close()

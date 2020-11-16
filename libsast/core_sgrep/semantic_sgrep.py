@@ -8,6 +8,7 @@ class SemanticGrep:
     def __init__(self, options: dict) -> None:
         self.scan_rules = options.get('sgrep_rules')
         self.show_progress = options.get('show_progress')
+        self.max_memory = options.get('sgrep_max_memory')
         exts = options.get('sgrep_extensions')
         if exts:
             self.exts = [ext.lower() for ext in exts]
@@ -33,7 +34,7 @@ class SemanticGrep:
                 invoke_semgrep,
                 (paths, self.scan_rules))
         else:
-            sgrep_out = invoke_semgrep(paths, self.scan_rules)
+            sgrep_out = invoke_semgrep(paths, self.scan_rules, self.max_memory)
         self.format_output(sgrep_out)
         return self.findings
 

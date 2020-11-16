@@ -53,6 +53,13 @@ def main():
                         help=('File extensions that should be scanned'
                               ' with sgrep'),
                         required=False)
+    parser.add_argument('--sgrep-max-memory',
+                        type=int,
+                        help=('Limit how much memory semgrep can use. '
+                              'A value of 0 means the memory usage is '
+                              'unbounded'),
+                        default=0,
+                        required=False)
     parser.add_argument('--file-extensions',
                         nargs='+',
                         help=('File extensions that should be scanned'
@@ -83,6 +90,7 @@ def main():
         options = {
             'sgrep_rules': args.sgrep_pattern_file,
             'sgrep_extensions': args.sgrep_file_extensions,
+            'sgrep_max_memory': args.sgrep_max_memory,
             'match_rules': args.pattern_file,
             'match_extensions': args.file_extensions,
             'ignore_filenames': args.ignore_filenames,
