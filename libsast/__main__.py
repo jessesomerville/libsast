@@ -55,9 +55,8 @@ def main():
                         required=False)
     parser.add_argument('--sgrep-max-memory',
                         type=int,
-                        help=('Limit how much memory semgrep can use. '
-                              'A value of 0 means the memory usage is '
-                              'unbounded'),
+                        help=('Limit how much memory semgrep can use. A value '
+                              'of 0 means the memory usage is unbounded'),
                         default=0,
                         required=False)
     parser.add_argument('--file-extensions',
